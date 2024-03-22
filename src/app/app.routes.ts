@@ -9,8 +9,13 @@ import { CrearProfesorComponent } from './screens/profesor/crear-profesor/crear-
 import { EditarProfesorComponent } from './screens/profesor/editar-profesor/editar-profesor.component';
 import { CrearNotasComponent } from './screens/notas/crear-notas/crear-notas.component';
 import { EditarNotasComponent } from './screens/notas/editar-notas/editar-notas.component';
+import { HomeComponent } from './screens/home/home.component';
 
 export const routes: Routes = [
+  {
+    path: '',
+    component: HomeComponent,
+  },
   {
     path: 'estudiantes',
     component: ListadoEstudiantesComponent,
@@ -23,8 +28,6 @@ export const routes: Routes = [
     path: 'estudiantes/editar/:id_estudiante',
     component: EditarEstudiantesComponent,
   },
-
-  
   {
     path: 'profesores',
     component: ListadoProfesorComponent,
