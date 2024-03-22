@@ -1,1 +1,70 @@
-<p>listado-estudiantes works!</p>
+<mat-form-field class="w-full">
+  <mat-label>Filtrar</mat-label>
+  <input
+    matInput
+    (keyup)="applyFilter($event)"
+    placeholder="Ej. Juan"
+    #input
+    class="w-full"
+  />
+</mat-form-field>
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+    <!-- Name Column -->
+    <ng-container matColumnDef="_">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let i = index" class="row-options">
+        {{ i + 1 }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="nombre">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+      <td mat-cell *matCellDef="let element">{{ element.nombre }}</td>
+    </ng-container>
+    <ng-container matColumnDef="option">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        aria-label="row actions"
+        class="row-options"
+      >
+        &nbsp;
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="menu"
+          aria-label="Example icon-button with a menu"
+        >
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button
+            mat-menu-item
+            (click)="toRedirect('/estudiantes/editar/' + element.id_estudiante)"
+          >
+            <mat-icon>mode_edit</mat-icon>
+            <span>Editar</span>
+          </button>
+          <button
+            mat-menu-item
+            (click)="deleteEstudiante(element.id_estudiante)"
+          >
+            <mat-icon>delete</mat-icon>
+            <span>Eliminar</span>
+          </button>
+        </mat-menu>
+      </td>
+    </ng-container>
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="3">Sin datos "{{ input.value }}"</td>
+    </tr>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    <tr mat-row></tr>
+  </table>
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    aria-label="Seleccione una página para los estudiantes"
+  ></mat-paginator>
+</div>

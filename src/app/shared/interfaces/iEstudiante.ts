@@ -1,5 +1,5 @@
 export interface iEstudiante {
-    id?: number;
-    name: string;
+    id_estudiante?: number;
+    nombre: string;
     status?: boolean;
 }

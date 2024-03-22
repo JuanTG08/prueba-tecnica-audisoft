@@ -1,0 +1,15 @@
+<form [formGroup]="_formGroup">
+  <mat-form-field appearance="fill" class="w-full">
+    <mat-label>Nombre</mat-label>
+    <input matInput formControlName="nombre" cdkFocusInitial required />
+    <mat-error>{{ getErrorMessage("nombre") }}</mat-error>
+  </mat-form-field>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="submitCreate()"
+    class="w-full"
+  >
+    Actualizar Estudiante
+  </button>
+</form>
