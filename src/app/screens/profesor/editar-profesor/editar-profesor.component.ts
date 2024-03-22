@@ -1,25 +1,25 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { EstudiantesService } from '../../../shared/services/estudiantes.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { iProfesor } from '../../../shared/interfaces/iProfesor';
+import { ActivatedRoute } from '@angular/router';
+import { ProfesoresService } from '../../../shared/services/profesores.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { iEstudiante } from '../../../shared/interfaces/iEstudiante';
 import { SharedModule } from '../../../shared/shared.module';
 
 @Component({
-  selector: 'app-editar-estudiantes',
+  selector: 'app-editar-profesor',
   standalone: true,
   imports: [SharedModule],
-  templateUrl: './editar-estudiantes.component.html',
-  styleUrl: './editar-estudiantes.component.css',
+  templateUrl: './editar-profesor.component.html',
+  styleUrl: './editar-profesor.component.css'
 })
-export class EditarEstudiantesComponent {
-  idEstudiante!: number;
+export class EditarProfesorComponent {
+  idProfesor!: number;
   _formGroup!: FormGroup;
-  estudiante!: iEstudiante;
+  profesor!: iProfesor;
   constructor(
     private activatedRoute: ActivatedRoute,
-    private service: EstudiantesService,
+    private service: ProfesoresService,
     private _snack: MatSnackBar,
     private formBuilder: FormBuilder
   ) {}
@@ -29,12 +29,12 @@ export class EditarEstudiantesComponent {
       nombre: ['', [Validators.minLength(1), Validators.maxLength(128)]],
     });
     try {
-      this.idEstudiante = this.activatedRoute.snapshot.params['id_estudiante'];
-      const getData = await this.service.getEstudiante(this.idEstudiante);
+      this.idProfesor = this.activatedRoute.snapshot.params['id_profesor'];
+      const getData = await this.service.getProfesor(this.idProfesor);
       if (getData.error || getData.status != 200)
-        throw new Error('Error al obtener el estudiante');
-      this.estudiante = getData.payload;
-      this._formGroup.patchValue({ nombre: this.estudiante.nombre });
+        throw new Error('Error al obtener el profesor');
+      this.profesor = getData.payload;
+      this._formGroup.patchValue({ nombre: this.profesor.nombre });
     } catch (error) {
       console.log(error);
     }
@@ -67,8 +67,8 @@ export class EditarEstudiantesComponent {
           'Ok'
         );
       let dataSend = this._formGroup.value;
-      dataSend.id_estudiante = this.idEstudiante;
-      dataSend.status = this.estudiante.status;
+      dataSend.id_profesor = this.idProfesor;
+      dataSend.status = this.profesor.status;
       const send = await this.service.update(dataSend);
       if (!send) throw new Error('Error al actualizar');
       this._snack.open('Se actualizó correctamente', 'Ok');

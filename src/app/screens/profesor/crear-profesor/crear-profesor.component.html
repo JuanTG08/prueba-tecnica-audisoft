@@ -1,4 +1,4 @@
-<form [formGroup]="_formGroup">
+<form [formGroup]="formGroup">
   <mat-form-field appearance="fill" class="w-full">
     <mat-label>Nombre</mat-label>
     <input matInput formControlName="nombre" cdkFocusInitial required />
@@ -7,9 +7,9 @@
   <button
     mat-raised-button
     color="primary"
-    (click)="submitUpdate()"
+    (click)="submitCreate()"
     class="w-full"
   >
-    Actualizar Estudiante
+    Crear Profesor
   </button>
 </form>

@@ -1,0 +1,51 @@
+<form [formGroup]="formGroup">
+  <mat-form-field appearance="fill" class="w-full">
+    <mat-label>Nombre de la nota</mat-label>
+    <input matInput formControlName="nombre" cdkFocusInitial required />
+    <mat-error>{{ getErrorMessage("nombre") }}</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="fill" class="w-full">
+    <mat-label>Profesores</mat-label>
+    <mat-select matInput formControlName="id_profesor" cdkFocusInitial required>
+      @for (profesor of profesores; track profesor) {
+      <mat-option [value]="profesor.id_profesor">{{
+        profesor.nombre
+      }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="fill" class="w-full">
+    <mat-label>Estudiantes</mat-label>
+    <mat-select
+      matInput
+      formControlName="id_estudiante"
+      cdkFocusInitial
+      required
+    >
+      @for (estudiante of estudiantes; track estudiante) {
+      <mat-option [value]="estudiante.id_estudiante">{{
+        estudiante.nombre
+      }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="fill" class="w-full">
+    <mat-label>Valor o Nota</mat-label>
+    <input
+      type="number"
+      matInput
+      formControlName="valor"
+      cdkFocusInitial
+      required
+    />
+    <mat-error>{{ getErrorMessage("valor") }}</mat-error>
+  </mat-form-field>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="submit()"
+    class="w-full"
+  >
+    Actualizar Nota
+  </button>
+</form>

@@ -1,39 +1,39 @@
 import { Component, ViewChild } from '@angular/core';
-import { EstudiantesService } from '../../../shared/services/estudiantes.service';
-import { SharedModule } from '../../../shared/shared.module';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { ProfesoresService } from '../../../shared/services/profesores.service';
 import { Router } from '@angular/router';
+import { SharedModule } from '../../../shared/shared.module';
 
 @Component({
-  selector: 'app-listado-estudiantes',
+  selector: 'app-listado-profesor',
   standalone: true,
   imports: [SharedModule],
-  templateUrl: './listado-estudiantes.component.html',
-  styleUrl: './listado-estudiantes.component.css',
+  templateUrl: './listado-profesor.component.html',
+  styleUrl: './listado-profesor.component.css'
 })
-export class ListadoEstudiantesComponent {
+export class ListadoProfesorComponent {
   dataSource!: MatTableDataSource<any>;
   displayedColumns: string[] = ['_', 'nombre', 'option'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private service: EstudiantesService, private router: Router) {}
+  constructor(private service: ProfesoresService, private router: Router) {}
 
   async ngAfterViewInit() {
-    await this.handlerListEstudiantes();
+    await this.handlerListProfesores();
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
-  async handlerListEstudiantes() {
+  async handlerListProfesores() {
     try {
-      const listEstudiantes = await this.service.listAll();
-      if (listEstudiantes.error || listEstudiantes.status != 200)
+      const listProfesores = await this.service.listAll();
+      if (listProfesores.error || listProfesores.status != 200)
         throw new Error('No fue posible obtener los datos');
-      this.dataSource = new MatTableDataSource(listEstudiantes.payload);
+      this.dataSource = new MatTableDataSource(listProfesores.payload);
     } catch (error) {
       console.log(error);
     }
@@ -52,13 +52,13 @@ export class ListadoEstudiantesComponent {
     this.router.navigate([path]);
   }
 
-  async deleteEstudiante(id: number) {
+  async deleteProfesor(id: number) {
     try {
-      const deleteEstudiante = await this.service.delete(id);
-      if (deleteEstudiante.error || deleteEstudiante.status != 200)
-        throw new Error('No fue posible eliminar el estudiante');
+      const deleteProfesor = await this.service.delete(id);
+      if (deleteProfesor.error || deleteProfesor.status != 200)
+        throw new Error('No fue posible eliminar el profesor');
       this.dataSource = new MatTableDataSource(
-        this.dataSource.data.filter((est) => est.id_estudiante != id)
+        this.dataSource.data.filter((est) => est.id_profesor != id)
       );
     } catch (error) {
       console.log(error);
