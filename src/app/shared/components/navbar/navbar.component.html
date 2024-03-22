@@ -1,0 +1,25 @@
+<mat-toolbar color="primary">
+  <span>College Admin</span>
+  <button mat-button [matMenuTriggerFor]="estudiantesMenu" class="button-nav-menu">
+    Estudiantes
+  </button>
+  <mat-menu #estudiantesMenu="matMenu" yPosition="above">
+    <button mat-menu-item (click)="toRedirect('/estudiantes')">Listar Estudiantes</button>
+    <button mat-menu-item (click)="toRedirect('/estudiantes/crear')">Crear Estudiante</button>
+  </mat-menu>
+  <button mat-button [matMenuTriggerFor]="profesorMenu" class="button-nav-menu">
+    Profesores
+  </button>
+  <mat-menu #profesorMenu="matMenu" yPosition="above">
+    <button mat-menu-item (click)="toRedirect('/profesores')">Listar Profesores</button>
+    <button mat-menu-item (click)="toRedirect('/profesores/crear')">Crear Profesores</button>
+  </mat-menu>
+
+  <button mat-button [matMenuTriggerFor]="notasMenu" class="button-nav-menu">
+    Notas
+  </button>
+  <mat-menu #notasMenu="matMenu" yPosition="above">
+    <button mat-menu-item (click)="toRedirect('/notas')">Lista de Notas</button>
+    <button mat-menu-item (click)="toRedirect('/notas/crear')">Establecer nuevas notas</button>
+  </mat-menu>
+</mat-toolbar>
